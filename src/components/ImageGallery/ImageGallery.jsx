@@ -8,7 +8,7 @@ export const ImageGallery = ({ images, onImageClick }) => {
     <ImageGalleryStyled>
       {images?.map(image => (
         <ImageGalleryItem
-          key={image.id}
+          key={image.largeImageURL}
           image={image}
           onImageClick={() => onImageClick(image)}
         />

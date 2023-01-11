@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,55 +10,47 @@ import {
 import { IconButton } from './IconButton/IconButton';
 import { ReactComponent as SearchIcon } from '../../icons/search.svg';
 
-export class Searchbar extends Component {
-  state = {
-    query: '',
-  };
+export default function Searchbar({ onSubmit }) {
+  const [query, setQuery] = useState('');
 
-  handleInputChange = event => {
+  const handleInputChange = event => {
     const { value } = event.currentTarget;
-
-    this.setState({
-      query: value.toLowerCase(),
-    });
+    setQuery(value.toLowerCase());
   };
 
-  handleSubmit = event => {
+  const handleSubmit = event => {
     event.preventDefault();
 
-    if (this.state.query.trim() === '') {
+    if (query.trim() === '') {
       toast.warn('Please enter a search term');
       return;
     }
-
-    this.props.onSubmit(this.state.query);
-    this.resetForm();
+    onSubmit(query);
+    resetForm();
   };
 
-  resetForm = () => {
-    this.setState({ query: '' });
+  const resetForm = () => {
+    setQuery('');
   };
 
-  render() {
-    return (
-      <SearchbarStyled>
-        <SearchFormStyled onSubmit={this.handleSubmit}>
-          <IconButton aria-label="Search">
-            <SearchIcon width="24" height="24" />
-          </IconButton>
+  return (
+    <SearchbarStyled>
+      <SearchFormStyled onSubmit={handleSubmit}>
+        <IconButton aria-label="Search">
+          <SearchIcon width="24" height="24" />
+        </IconButton>
 
-          <SearchFormInputStyled
-            type="text"
-            autoComplete="off"
-            autoFocus
-            // value={this.state.query}
-            onChange={this.handleInputChange}
-            placeholder="Search images and photos"
-          />
-        </SearchFormStyled>
-      </SearchbarStyled>
-    );
-  }
+        <SearchFormInputStyled
+          type="text"
+          autoComplete="off"
+          autoFocus
+          // value={this.state.query}
+          onChange={handleInputChange}
+          placeholder="Search images and photos"
+        />
+      </SearchFormStyled>
+    </SearchbarStyled>
+  );
 }
 
 Searchbar.propTypes = {
