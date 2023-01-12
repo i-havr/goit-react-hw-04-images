@@ -45,10 +45,10 @@ export default function App() {
           // записуємо в state тільки властивості id, tags, webformatURL, largeImageURL
           const newHits = hits.map(
             ({ id, tags, webformatURL, largeImageURL }) => ({
-              id: id,
-              largeImageURL: largeImageURL,
-              webformatURL: webformatURL,
-              tags: tags,
+              id,
+              largeImageURL,
+              webformatURL,
+              tags,
             })
           );
           setImages(prev => (prev ? [...prev, ...newHits] : [...newHits]));
