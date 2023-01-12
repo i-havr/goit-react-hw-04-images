@@ -26,7 +26,7 @@ export default function App() {
   const [status, setStatus] = useState(Status.IDLE);
 
   const perPage = 12;
-  const showButton = status !== 'pending' && images && totalPages !== page;
+  const showButton = status !== Status.PENDING && images && totalPages !== page;
 
   useEffect(() => {
     if (!query) {
@@ -86,7 +86,7 @@ export default function App() {
         <ImageGallery images={images} onImageClick={handleToggleModal} />
       )}
 
-      {status === 'pending' && <Loader />}
+      {status === Status.PENDING && <Loader />}
 
       {showButton && <Button onLoadMoreClick={handleLoadMore} />}
 
